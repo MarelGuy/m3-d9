@@ -65,28 +65,31 @@
                 <li class="nav-item">
                     <a class="nav-link" href="backoffice.html">backoffice</a>
                 </li>
+            </ul>
+        </div>
     </nav>
 
     <div class="container text-center">
         <h1>Amazon Items</h1>
         <h2 class="my-5">Items:</h2>
-        <div class="col-md-6 offset-md-3">
-            <!-- <div id="currentItems"></div> -->
-            <ul class="list-group list-group-flush" id="currentItems"></ul>
+        <div class="row" id="currentItems">
         </div>
     </div>
 
 
+
     <script>
         window.onload = async () => {
-            const api = "https://striveschool-api.herokuapp.com/api/product";
+            const api = "https://striveschool-api.herokuapp.com/api/product/";
             let currentItems = document.querySelector("#currentItems");
+            let token =
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiZjM5MzRiY2RlMTAwMTc2MTZiZmMiLCJpYXQiOjE2MDUxMDU1MTIsImV4cCI6MTYwNjMxNTExMn0.r1xbTp7IVPP7J1HAKZfBFGacUaH_im6Yzi8BzjFJZqM"
 
             try {
                 let response = await fetch(
                     api, {
                         headers: {
-                            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiZjM5MzRiY2RlMTAwMTc2MTZiZmMiLCJpYXQiOjE2MDUxMDU1MTIsImV4cCI6MTYwNjMxNTExMn0.r1xbTp7IVPP7J1HAKZfBFGacUaH_im6Yzi8BzjFJZqM"
+                            "Authorization": token,
                         }
                     })
                 let events = await response
@@ -94,15 +97,22 @@
 
                 if (events.length > 0) {
                     events.forEach((e) => {
-                        let listItem = document.createElement("li");
+                        let listItem = document.createElement("div");
                         listItem.classList.add(
-                            "list-group-item",
                             "d-flex",
-                            "justify-content-between"
+                            "justify-content-center"
                         );
                         listItem.innerHTML =
-                            `<span>Item Name: ${e.brand} ${e.name}</span><img class="img"
-                                src="${e.imageUrl}"><span>${e.description}</span><span>Price:${e.price}$</span>`;
+                            `<div class="col col-xs-12 col-md 6 col-sm-4">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="${e.imageUrl}" class="card-img-top w-50" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${e.brand} ${e.name}</h5>
+                                        <p class="card-text">Price:${e.price}$</p>
+                                        <a class="btn btn-info" href="detail.html?id=${e._id}">VIEW DETAILS</a>
+                                    </div>
+                                </div>
+                            </div>`
                         currentItems.appendChild(listItem);
                     });
                 } else {

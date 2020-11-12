@@ -78,7 +78,9 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
     </script>
     <script>
-        let api = "https://striveschool-api.herokuapp.com/api/product"
+        let api = "https://striveschool-api.herokuapp.com/api/product/"
+        let token =
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiZjM5MzRiY2RlMTAwMTc2MTZiZmMiLCJpYXQiOjE2MDUxMDU1MTIsImV4cCI6MTYwNjMxNTExMn0.r1xbTp7IVPP7J1HAKZfBFGacUaH_im6Yzi8BzjFJZqM"
 
         let handleSubmit = (e) => {
             e.preventDefault();
@@ -100,7 +102,7 @@
                     body: JSON.stringify(aItem),
                     headers: new Headers({
                         "Content-Type": "application/json",
-                        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmFiZjM5MzRiY2RlMTAwMTc2MTZiZmMiLCJpYXQiOjE2MDUxMDU1MTIsImV4cCI6MTYwNjMxNTExMn0.r1xbTp7IVPP7J1HAKZfBFGacUaH_im6Yzi8BzjFJZqM",
+                        "Authorization": token,
                     }),
                 });
                 if (response.ok) {
